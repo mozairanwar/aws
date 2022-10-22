@@ -1,0 +1,49 @@
+{
+  "family": "<name>",
+  "taskRoleArn": "<iam role arn>",
+  "executionRoleArn": "<iam role arn>",
+  "networkMode": "awsvpc",
+  "containerDefinitions": [
+    {
+      "name": "<name>",
+      "image": "<image arn>",
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "command": [
+        "",
+        ""
+      ],
+      "environmentFiles": [
+        {
+          "value": "<s3 bucket arn>",
+          "type": "s3"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-create-group": "true",
+          "awslogs-group": "/ecs/<task-def>",
+          "awslogs-region": "<region>",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "healthCheck": {
+        "command": ["CMD-SHELL", "curl -f http://localhost:3000/health-status || exit 1"],
+        "interval": 30,
+        "timeout": 10,
+        "retries": 3,
+        "startPeriod": 60
+      }
+    }
+  ],
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "1024"
+}

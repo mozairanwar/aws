@@ -1,0 +1,4 @@
+{
+  "repositoryName": "<repo name>",
+  "lifecyclePolicyText": "{\"rules\":[{\"rulePriority\":100,\"description\":\"remove old untagged images\",\"selection\":{\"tagStatus\":\"untagged\",\"countType\":\"sinceImagePushed\",\"countUnit\":\"days\",\"countNumber\":15},\"action\":{\"type\":\"expire\"}}]}"
+}
